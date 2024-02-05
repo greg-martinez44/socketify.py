@@ -1,7 +1,9 @@
-## Template Engines
+# Template Engines
+
 Is very easy to add support to Template Engines, we already add `Mako` and `Jinja2` in /src/examples/helpers/templates.py.
 
-### Implementation of Template extension:
+## Implementation of Template extension:
+
 ```python
 # Simple example of mako and jinja2 template plugin for socketify.py
 from mako.template import Template
@@ -40,7 +42,8 @@ class MakoTemplate:
             return exceptions.html_error_template().render()
 ```
 
-### Using templates
+## Using templates
+
 `app.template(instance)` will register the Template extension and call it when you use `res.render(...)`
 
 ```python
@@ -73,4 +76,4 @@ app.run()
 
 ```
 
-### Next [GraphiQL](graphiql.md)
+## Next [GraphiQL](graphiql.md)
