@@ -1,9 +1,13 @@
 ---
-title: API
+title: API reference
 id: api
+tags:
+    - api
+    - app
 ---
 
 ## App
+
 ```python
 
 class App:
