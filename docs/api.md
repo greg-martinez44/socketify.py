@@ -61,8 +61,34 @@ class App:
             print("shutdown!")
         """
     def on_error(self, method: callable):
+        """Add a callback to capture errors and print error messages to clients.
+
+        Example:
+
+        @app.on_error
+        def on_error(error, res, req):
+            # here you can log properly the error and do a pretty response to your clients
+            print("Somethind goes %s" % str(error))
+            # response and request can be None if the error is in an async function
+            if res != None:
+                # if response exists try to send something
+                res.write_status(500)
+                res.end("Sorry we did something wrong")
         """
     def router(self, prefix: str="", *middlewares):
+        """Set the path to call the function.
+
+        Example:
+
+        from socketify import App
+        import asyncio 
+        app = App(lifespan=False)
+        router = app.router()
+
+        @router.get("/")
+        async def home(res, req):
+            res.send(b"Hello, World!")
+        """
     def register(self, extension):
     def template(self, template_engine):
     def json_serializer(self, json_serializer):
