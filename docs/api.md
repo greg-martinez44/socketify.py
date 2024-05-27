@@ -1,4 +1,7 @@
+# Socketify
+
 ## App
+
 ```python
 
 class App:
@@ -6,7 +9,7 @@ class App:
 
     def on_start(self, method: callable):
     def on_shutdown(self, method: callable):
-    def on_error(self, method: callable):    
+    def on_error(self, method: callable):
     def router(self, prefix: str="", *middlewares):
     def register(self, extension):
     def template(self, template_engine):
@@ -39,6 +42,7 @@ class App:
 ```
 
 ## Response
+
 ```python
 class Response:
     def __init__(self, response, app):
@@ -89,6 +93,7 @@ class Response:
 ```
 
 ## Request
+
 ```python
 class Request:
     def __init__(self, request, app):
@@ -109,7 +114,9 @@ class Request:
     def is_ancient(self):
     def __del__(self):
 ```
+
 ## AppListenOptions
+
 ```python
 class AppListenOptions:
     port: int = 0
@@ -117,7 +124,9 @@ class AppListenOptions:
     options: int = 0
     domain: str = None
 ```
+
 ## AppOptions
+
 ```python
 class AppOptions:
     key_file_name: str = None,
@@ -130,8 +139,8 @@ class AppOptions:
 ```
 
 ## WebSockets
-```python
 
+```python
 class WebSocket:
     def __init__(self, websocket, app):
 
@@ -162,6 +171,7 @@ class WebSocket:
 ```
 
 ## Enums
+
 ```python
 # Compressor mode is 8 lowest bits where HIGH4(windowBits), LOW4(memLevel).
 # Decompressor mode is 8 highest bits LOW4(windowBits).
@@ -211,8 +221,8 @@ class SendStatus(IntEnum):
     DROPPED = 2
 ```
 
-
 ## Helpers
+
 ```python
 async def sendfile(res, req, filename)
 def middleware(*functions):
