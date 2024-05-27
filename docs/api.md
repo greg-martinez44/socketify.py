@@ -1,15 +1,67 @@
-# Socketify
+# Objects [Need better name...]
 
 ## App
 
 ```python
 
 class App:
-    def __init__(self, options=None, request_response_factory_max_items=0, websocket_factory_max_items=0, task_factory_max_items=100_000, lifespan=True):
+    def __init__(
+        self,
+        options=None,
+        request_response_factory_max_items=0,
+        websocket_factory_max_items=0,
+        task_factory_max_items=100_000,
+        lifespan=True
+    ):
+        """Basic App object.
+
+        Example:
+
+        from socketify import App
+
+        app = App()
+        app.get("/", lambda res, req: res.end("Hello World!"))
+        app.listen(
+            3000,
+            lambda config: print("Listening on port http://localhost:%d now\n" % config.port),
+        )
+        app.run()
+        """
 
     def on_start(self, method: callable):
+        """Add a callback to run when your app starts listening to a port
+        
+        Example:
+
+        from socketify import App
+        import asyncio 
+        app = App(lifespan=False)
+        router = app.router()
+
+        @app.on_start
+        async def my_function():
+            print("wait...")
+            await asyncio.sleep(1)
+            print("start!")
+        """
     def on_shutdown(self, method: callable):
+        """Add a callback to run when your app shuts down.
+        
+        Example:
+
+        from socketify import App
+        import asyncio 
+        app = App(lifespan=False)
+        router = app.router()
+
+        @app.on_shutdown
+        async def my_function():
+            print("wait...")
+            await asyncio.sleep(1)
+            print("shutdown!")
+        """
     def on_error(self, method: callable):
+        """
     def router(self, prefix: str="", *middlewares):
     def register(self, extension):
     def template(self, template_engine):
