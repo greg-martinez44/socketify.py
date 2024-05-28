@@ -7,7 +7,7 @@
 class App:
     def __init__(
         self,
-        options: [AppOptions](#appoptions)=None,
+        options: AppOptions=None,
         request_response_factory_max_items: int=0,
         websocket_factory_max_items: int=0,
         task_factory_max_items: int=100_000,
