@@ -1,4 +1,4 @@
-# Objects [Need better name...]
+# socketify
 
 ## App
 
@@ -7,32 +7,29 @@
 class App:
     def __init__(
         self,
-        options=None,
-        request_response_factory_max_items=0,
-        websocket_factory_max_items=0,
-        task_factory_max_items=100_000,
-        lifespan=True
+        options: [AppOptions](#appoptions)=None,
+        request_response_factory_max_items: int=0,
+        websocket_factory_max_items: int=0,
+        task_factory_max_items: int=100_000,
+        lifespan: bool=True
     ):
-        """Basic App object.
+        """Socketify app service."""
 
-        Example:
+    def on_start(self, method: callable) -> callable:
+        """Add a callback to run when your app starts listening to a port.
 
-        from socketify import App
+        Parameters
+        ----------
+        method: callable
+            A callable object.
 
-        app = App()
-        app.get("/", lambda res, req: res.end("Hello World!"))
-        app.listen(
-            3000,
-            lambda config: print("Listening on port http://localhost:%d now\n" % config.port),
-        )
-        app.run()
-        """
-
-    def on_start(self, method: callable):
-        """Add a callback to run when your app starts listening to a port
+        Returns
+        -------
+        method: callable
+            A callable object.
         
-        Example:
-
+        Examples
+        --------
         from socketify import App
         import asyncio 
         app = App(lifespan=False)
@@ -44,11 +41,22 @@ class App:
             await asyncio.sleep(1)
             print("start!")
         """
-    def on_shutdown(self, method: callable):
-        """Add a callback to run when your app shuts down.
-        
-        Example:
 
+    def on_shutdown(self, method: callable) -> callable:
+        """Add a callback to run when your app shuts down.
+
+        Parameters
+        ----------
+        method: callable
+            A callable object.
+        
+        Returns
+        -------
+        method: callable
+            A callable object.
+        
+        Examples
+        --------
         from socketify import App
         import asyncio 
         app = App(lifespan=False)
@@ -60,11 +68,22 @@ class App:
             await asyncio.sleep(1)
             print("shutdown!")
         """
-    def on_error(self, method: callable):
+
+    def on_error(self, method: callable) -> callable:
         """Add a callback to capture errors and print error messages to clients.
 
-        Example:
+        Parameters
+        ----------
+        method: callable
+            A callable object
+        
+        Returns
+        -------
+        method: callable
+            A callable object
 
+        Examples
+        --------
         @app.on_error
         def on_error(error, res, req):
             # here you can log properly the error and do a pretty response to your clients
@@ -75,11 +94,26 @@ class App:
                 res.write_status(500)
                 res.end("Sorry we did something wrong")
         """
-    def router(self, prefix: str="", *middlewares):
-        """Set the path to call the function.
 
-        Example:
+    def router(self, prefix: str="", *middlewares: callable) -> DecoratorRouter:
+        """Returns a router decorator object.
 
+        Contains decorators to define requests methods to the app socket.
+
+        Parameters
+        ----------
+        prefix: str
+            The prefix for your request call.
+        middlewares: callable
+            The callable object invoked from the route.
+
+        Returns
+        -------
+        DecoratorRouter
+            A router object which contains decorators to define requests methods.
+
+        Examples
+        --------
         from socketify import App
         import asyncio 
         app = App(lifespan=False)
@@ -89,6 +123,7 @@ class App:
         async def home(res, req):
             res.send(b"Hello, World!")
         """
+
     def register(self, extension):
     def template(self, template_engine):
     def json_serializer(self, json_serializer):
